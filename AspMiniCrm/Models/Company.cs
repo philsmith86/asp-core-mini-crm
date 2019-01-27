@@ -20,6 +20,6 @@ namespace AspMiniCrm.Models
         [Required]
         public string Web { get; set; }
 
-        public virtual List<Employee> Employees { get; set; }
+        public List<Employee> Employees { get; set; }
     }
 }
