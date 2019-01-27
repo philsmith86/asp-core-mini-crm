@@ -1,0 +1,49 @@
+﻿
+@{
+    ViewData["Title"] = "index";
+}
+
+@model List<Company>
+
+<div class="container">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">Companies</th>
+            </tr>
+            <tr>
+                <td>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col">Id</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Website</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var company in Model)
+                            {
+                                <tr>
+                                    <td>@company.Id</td>
+                                    <td>@company.Name</td>
+                                    <td>@company.Email</td>
+                                    <td><a href="@company.Web">@company.Web</a></td>
+                                    <td>
+                                        <a class="btn btn-primary btn-block" href="/companies/@company.Id/edit" role="button">Edit</a>
+                                        <form method="DELETE" action="/companies/@company.Id">
+                                            <button type="submit" class="btn btn-danger btn-block">Delete</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <a class="btn btn-success" href='/companies/create' role="button">Create New Company</a>
+                </td>
+            </tr>
+        </thead>
+    </table>
+</div>
