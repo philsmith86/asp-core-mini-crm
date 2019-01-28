@@ -3,7 +3,7 @@
     ViewData["Title"] = "index";
 }
 
-@model List<Company>
+@model AspMiniCrm.ViewModels.CompanyViewModel;
 
 <div class="container">
     <div class="my-auto" style="height: 20px;"></div>
@@ -25,7 +25,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var company in Model)
+                            @foreach (var company in Model.Companies)
                             {
                                 <tr>
                                     <td>@company.Id</td>
