@@ -1,9 +1,8 @@
-﻿
-@{
-    ViewData["Title"] = "index";
-}
+﻿@model AspMiniCrm.ViewModels.CompanyViewModel;
 
-@model AspMiniCrm.ViewModels.CompanyViewModel;
+@{
+    ViewData["Title"] = "Companies";
+}
 
 <div class="container">
     <div class="my-auto" style="height: 20px;"></div>
@@ -33,16 +32,17 @@
                                     <td>@company.Email</td>
                                     <td><a href="@company.Web">@company.Web</a></td>
                                     <td>
-                                        <a class="btn btn-primary btn-block" href="/companies/@company.Id/edit" role="button">Edit</a>
-                                        <form method="DELETE" action="/companies/@company.Id">
-                                            <button type="submit" class="btn btn-danger btn-block">Delete</button>
+                                        @Html.ActionLink("Edit", "EditCompany", "Companies", new { companyId = company.Id }, new { @class = "btn btn-primary btn-block" })
+                                        <form asp-for="DeleteCompany">
+                                            @Html.HiddenFor(c => company.Id)
+                                            @Html.ActionLink("Delete", "DeleteCompany", "Companies", new { companyId = company.Id }, new { @class = "btn btn-danger btn-block" })
                                         </form>
                                     </td>
                                 </tr>
                             }
                         </tbody>
                     </table>
-                    <a class="btn btn-success" href='/companies/create' role="button">Create New Company</a>
+                    @Html.ActionLink("Create New Company", "CreateCompany", "Companies", null, new { @class = "btn btn-success" })
                 </td>
             </tr>
         </thead>

@@ -9,6 +9,9 @@ namespace AspMiniCrm.Services
     public interface ICompanyService
     {
         List<Company> GetAllCompanies();
-        void AddCompany();
+        void AddCompany(Company company);
+        Company GetCompanyById(int id);
+        void UpdateCompany(Company company);
+        void DeleteCompany(int id);
     }
 }

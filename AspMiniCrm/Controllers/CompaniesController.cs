@@ -27,15 +27,41 @@ namespace AspMiniCrm.Controllers
             return View(cvm);
         }
 
-        public IActionResult AddCompany([Bind] Company company)
+        public IActionResult CreateCompany()
         {
-            //if (ModelState.IsValid)
-            //{
-            //    if (company.AddGroupMeeting(groupMeeting) > 0)
-            //    {
-            //        return RedirectToAction("Index");
-            //    }
-            //}
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult CreateCompany(Company company)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("CreateCompany");
+            }
+            _companyService.AddCompany(company);
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult EditCompany(int companyId)
+        {
+            return View(_companyService.GetCompanyById(companyId));
+        }
+
+        [HttpPost]
+        public IActionResult EditCompany(Company company)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("EditCompany", company);
+            }
+            _companyService.UpdateCompany(company);
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult DeleteCompany(int companyId)
+        {
+            _companyService.DeleteCompany(companyId);
             return RedirectToAction("Index");
         }
     }
