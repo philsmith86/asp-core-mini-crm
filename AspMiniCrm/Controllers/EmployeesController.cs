@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AspMiniCrm.Models;
+using AspMiniCrm.Services;
+using AspMiniCrm.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,17 +12,63 @@ namespace AspMiniCrm.Controllers
 {
     public class EmployeesController : Controller
     {
-        private CrmDbContext dbContext;
-
-        public EmployeesController(CrmDbContext context)
+        private IEmployeeService _employeeService;
+        private ICompanyService _companyService;
+        
+        public EmployeesController(IEmployeeService employeeService, ICompanyService companyService)
         {
-            dbContext = context;
+            _employeeService = employeeService;
+            _companyService = companyService;
         }
 
         public IActionResult Index()
         {
-            List<Employee> employees = dbContext.Employees.Include(e => e.Company).ToList();
-            return View(employees);
+            var evm = new EmployeeViewModel()
+            {
+                Employees = _employeeService.GetAllEmployees()
+            };
+
+            return View(evm);
+        }
+
+        public IActionResult CreateEmployee()
+        {
+            ViewBag.Companies = _companyService.GetAllCompanies();
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult CreateEmployee(Employee employee)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("CreateEmployee");
+            }
+            _employeeService.AddEmployee(employee);
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult EditEmployee(int employeeId)
+        {
+            ViewBag.Companies = _companyService.GetAllCompanies();
+            return View(_employeeService.GetEmployeeById(employeeId));
+        }
+
+        [HttpPost]
+        public IActionResult EditEmployee(Employee employee)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("EditEmployee", employee);
+            }
+            _employeeService.UpdateEmployee(employee);
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult DeleteEmployee(int employeeId)
+        {
+            _employeeService.DeleteEmployee(employeeId);
+            return RedirectToAction("Index");
         }
     }
 }

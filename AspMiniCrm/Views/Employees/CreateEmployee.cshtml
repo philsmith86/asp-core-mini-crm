@@ -1,0 +1,42 @@
+﻿@model Employee;
+@{
+    ViewData["Title"] = "Create Employee";
+}
+
+<div class="container">
+    <div class="my-auto" style="height: 20px;"></div>
+    <form asp-action="CreateEmployee" method="POST" role="form">
+        <div class="form-group">
+            <label asp-for="FirstName">First Name</label>
+            <input type="text" class="form-control" asp-for="FirstName" placeholder="Enter First Name">
+            <span asp-validation-for="FirstName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="LastName">Last Name</label>
+            <input type="text" class="form-control" asp-for="LastName" placeholder="Enter Last Name">
+            <span asp-validation-for="LastName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Telephone">Telephone</label>
+            <input type="text" class="form-control" asp-for="Telephone" placeholder="Enter Telephone">
+            <span asp-validation-for="Telephone" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Email">Email</label>
+            <input type="email" class="form-control" asp-for="Email" placeholder="Enter Email Address">
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="companyId">Select Company:</label>
+            <select class="form-control" asp-for=CompanyId>
+                @foreach (var company in ViewBag.Companies)
+                {
+                    <option value=@company.Id>@company.Name</option>
+                }
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Create Employee</button>
+    </form>
+</div>

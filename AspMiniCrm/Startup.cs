@@ -29,6 +29,7 @@ namespace AspMiniCrm
         {
             services.AddDbContext<CrmDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddTransient<ICompanyService, CompanyService>();
+            services.AddTransient<IEmployeeService, EmployeeService>();
 
             services.Configure<CookiePolicyOptions>(options =>
             {
