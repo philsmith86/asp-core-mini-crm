@@ -5,10 +5,12 @@ using System.Threading.Tasks;
 using AspMiniCrm.Models;
 using AspMiniCrm.Services;
 using AspMiniCrm.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AspMiniCrm.Controllers
 {
+    [Authorize]
     public class CompaniesController : Controller
     {
         private ICompanyService _companyService;

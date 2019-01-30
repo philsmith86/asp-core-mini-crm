@@ -5,11 +5,13 @@ using System.Threading.Tasks;
 using AspMiniCrm.Models;
 using AspMiniCrm.Services;
 using AspMiniCrm.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace AspMiniCrm.Controllers
 {
+    [Authorize]
     public class EmployeesController : Controller
     {
         private IEmployeeService _employeeService;
