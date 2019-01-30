@@ -42,6 +42,7 @@ namespace AspMiniCrm.Controllers
         {
             if (!ModelState.IsValid)
             {
+                ViewBag.Companies = _companyService.GetAllCompanies();
                 return View("CreateEmployee");
             }
             _employeeService.AddEmployee(employee);
@@ -59,6 +60,7 @@ namespace AspMiniCrm.Controllers
         {
             if (!ModelState.IsValid)
             {
+                ViewBag.Companies = _companyService.GetAllCompanies();
                 return View("EditEmployee", employee);
             }
             _employeeService.UpdateEmployee(employee);
